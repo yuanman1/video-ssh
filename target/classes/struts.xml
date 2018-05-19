@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+	<struts>
+	<constant name="struts.devMode" value="true"></constant>
+	
+	<!-- 后台 -->
+	<!-- admin登录 -->
+	
+	<package name="admin" namespace="/admin" extends="basePackage">
+	<action name="user_*" class="adminUserAction" method="{1}">
+	 <result>/WEB-INF/view/admin/login.jsp</result>
+	  <result name="header">/WEB-INF/view/admin/header.jsp</result> 
+	</action>
+	</package>
+	
+	<!-- course模块 -->
+	<package name="course" namespace="/admin1" extends="basePackage">
+	<action name="courseList" class="adminCourseAction" method="courseList">
+	 <result name="lanjie" type="redirectAction">
+	   <param name="actionName">user_login</param>
+       <param name="namespace">/admin</param>
+	 </result>
+	 <result>/WEB-INF/view/admin/course/courselist.jsp</result>
+	</action>
+	</package>
+	<package name="course1" namespace="/admin" extends="basePackage">
+	<action name="course_*" class="adminCourseAction" method="{1}">
+	 <result name="lanjie" type="redirectAction">
+	   <param name="actionName">user_login</param>
+             <param name="namespace">/admin</param>
+	 </result>
+	  <result name="addcourse">/WEB-INF/view/admin/course/addcourse.jsp</result>
+	   <result name="updatecourse">/WEB-INF/view/admin/course/updatecourse.jsp</result>
+	  <result name="addcourse1" type="redirectAction">
+             <param name="actionName">courseList</param>
+             <param name="namespace">/admin1</param>
+	  </result>
+	</action>
+	</package>
+	<!-- speaker模块 -->
+	<package name="speaker" namespace="/admin1" extends="basePackage">
+	<action name="speakerList" class="adminSpeakerAction" method="speakerList">
+	 <result name="lanjie" type="redirectAction">
+	   <param name="actionName">user_login</param>
+             <param name="namespace">/admin</param>
+	 </result>
+	 <result>/WEB-INF/view/admin/speaker/speakerlist.jsp</result>
+	</action>
+	</package>
+	<package name="speaker1" namespace="/admin" extends="basePackage">
+	<action name="speaker_*" class="adminSpeakerAction" method="{1}">
+	 <result name="lanjie" type="redirectAction">
+	   <param name="actionName">user_login</param>
+             <param name="namespace">/admin</param>
+	 </result>
+	  <result name="addspeaker">/WEB-INF/view/admin/speaker/addspeaker.jsp</result>
+	   <result name="updatespeaker">/WEB-INF/view/admin/speaker/updatespeaker.jsp</result>
+	   <result name="allspeaker" type="redirectAction">
+             <param name="actionName">speakerList</param>
+             <param name="namespace">/admin1</param>
+	  </result>
+	</action>
+	</package>
+	<!-- video模块 -->
+	<package name="video" namespace="/admin1" extends="basePackage">
+	<action name="videoList" class="adminVideoAction" method="videoList">
+	 <result name="lanjie" type="redirectAction">
+	   <param name="actionName">user_login</param>
+             <param name="namespace">/admin</param>
+	 </result>
+	 <result>/WEB-INF/view/admin/video/videolist.jsp</result>
+	</action>
+	</package>
+	<package name="video1" namespace="/admin" extends="basePackage">
+	<action name="video_*" class="adminVideoAction" method="{1}">
+	 <result name="lanjie" type="redirectAction">
+	   <param name="actionName">user_login</param>
+             <param name="namespace">/admin</param>
+	 </result>
+	 <result name="addvideo">/WEB-INF/view/admin/video/addvideo.jsp</result>
+	  <result name="updatevideo">/WEB-INF/view/admin/video/updatevideo.jsp</result>
+	 <result name="allvideo" type="redirectAction">
+             <param name="actionName">videoList</param>
+             <param name="namespace">/admin1</param>
+	  </result>
+	</action>
+	</package>
+	<!-- statistics模块 -->
+	<package name="statistics" namespace="/admin1" extends="basePackage">
+	<action name="statisticsList" class="adminStatisticsAction" method="statisticsList">
+	 <result name="lanjie" type="redirectAction">
+	   <param name="actionName">user_login</param>
+             <param name="namespace">/admin</param>
+	 </result>
+	 <result>/WEB-INF/view/admin/statistics/statisticslist.jsp</result>
+	</action>
+	</package>
+	
+	<!-- 前台 -->
+	<!-- 跳到前台页面 -->
+	<package name="front" namespace="/front" extends="struts-default">
+	<action name="user" class="frontUserAction" method="login">
+	 <result>/WEB-INF/view/front/index.jsp</result>
+	</action>
+	</package>
+	<!-- 退出重定向到前台页面 -->
+	<package name="front1" namespace="/front2" extends="struts-default">
+	<action name="user_*" class="frontUserAction" method="{1}">
+	 <result type="redirectAction">
+             <param name="actionName">user</param>
+             <param name="namespace">/front</param>
+	</result>
+	</action>
+	</package>
+	<!-- 前台登录 注册-->
+	<package name="front2" namespace="/front1" extends="json-default">
+	<action name="user_*" class="frontUserAction" method="{1}">
+	<result name="success" type="json">
+	<param name="root">succ</param>
+	</result>
+	</action>
+	</package>
+	<!-- 前台修改页面 -->
+	<package name="front3" namespace="/front3" extends="struts-default">
+	<action name="user" class="frontUserAction" method="userIndex">
+	 <result>/WEB-INF/view/front/user/index.jsp</result>
+	</action>
+	</package>
+	<package name="front4" namespace="/front4" extends="struts-default">
+	<action name="user_*" class="frontUserAction" method="{1}">
+	 <result name="profile">/WEB-INF/view/front/user/profile.jsp</result>
+	 <result name="avatar">/WEB-INF/view/front/user/avatar.jsp</result>
+	 <result name="password">/WEB-INF/view/front/user/password.jsp</result>
+	 <result name="forget_pwd">/WEB-INF/view/front/user/forget_pwd.jsp</result>
+	 <result name="reset_pwd">/WEB-INF/view/front/user/reset_pwd.jsp</result>
+	 <result name="allindex" type="redirectAction">
+             <param name="actionName">user</param>
+             <param name="namespace">/front3</param>
+	  </result>
+	</action>
+	</package>
+	
+	<!-- 前台course模块 -->
+	<package name="frontcourse" namespace="/frontcourse" extends="struts-default">
+	<action name="course" class="frontCourseAction" method="frontCourse">
+	 <result>/WEB-INF/view/front/course/index.jsp</result>
+	</action>
+	</package>
+	<!-- 前台video模块 -->
+	<package name="frontvideo" namespace="/frontvideo" extends="struts-default">
+	<action name="video" class="frontVideoAction" method="frontVideo">
+	 <result>/WEB-INF/view/front/video/index.jsp</result>
+	</action>
+	</package>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 拦截器 -->
+	 <package name="basePackage" abstract="true" extends="struts-default">
+		<interceptors>
+			<interceptor name="myInterceptor" class="com.zhiyou100.video.web.interceptor.MyInterceptor03"></interceptor>
+<!-- 			 <interceptor name="myInterceptor1" class="com.zhiyou100.video.web.interceptor.MyInterceptor02"></interceptor> 
+ -->			<interceptor-stack name="myStack">
+				<interceptor-ref name="myInterceptor">
+				<!-- excludeMethods:不拦截
+					includeMethods:拦截 -->
+					<param name="excludeMethods">login,login1</param>
+				</interceptor-ref>
+				<!--  <interceptor-ref name="myInterceptor1">
+				<param name="excludeMethods">login</param>
+				</interceptor-ref>  -->
+				<interceptor-ref  name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myStack"></default-interceptor-ref>
+		<global-results>
+			<result name="error">/WEB-INF/view/admin/error.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+	</package>
+	
+	</struts>
